@@ -46,10 +46,12 @@ class Dish(models.Model):
         return self.name
 
 
+"""
 class Order(models.Model):
-    """ Модель заказа """
+    Модель заказа
 
     employee = models.ForeignKey(Employee,
                                  related_name='orders',
                                  on_delete=models.CASCADE)
     date = models.DateTimeField(auto_created=True)
+"""
