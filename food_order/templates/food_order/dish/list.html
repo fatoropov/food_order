@@ -1,0 +1,36 @@
+{% extends "food_order/base.html" %}
+{% load static %}
+
+{% block title %}
+  {% if category %}{{ category.name }}{% else %}Меню{% endif %}
+{% endblock %}
+
+{% block content %}
+  <div id="sidebar">
+    <h3>Категории</h3>
+    <ul>
+      <li {% if not category %}class="selected"{% endif %}>
+        <a href="{% url 'food_order:dish_list' %}">Все</a>
+      </li>
+      {% for c in categories %}
+        <li {% if category.slug == c.slug %}class="selected"{% endif %}>
+          <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div id="main" class="product-list">
+    <h1>{% if category %}{{ category.name }}{% else %}Продукты
+      {% endif %}</h1>
+      {% for dish in dishes %}
+        <div class="item">
+          <a href="{{ dish.get_absolute_url }}">
+            <img src="{% if dish.image %}{{ dish.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+          </a>
+          <a href="{{ dish.get_absolute_url }}">{{ dish.name }}</a>
+          <br>
+          {{ dish.price }} ₽
+        </div>
+      {% endfor %}
+  </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "food_order/base.html" %}
+{% load static %}
+
+{% block title %}
+  {{ dish.name }}
+{% endblock %}
+
+{% block content %}
+  <div class="product-detail">
+    <img src="{% if dish.image %}{{ dish.image.url }}{% else %}
+    {% static 'img/no_image.png' %}{% endif %}">
+    <h1>{{ dish.name }}</h1>
+    <h2>
+        <a href="{{ dish.category.get_absolute_url }}">
+            {{ dish.category }}
+        </a>
+    </h2>
+    <p class="price">{{ dish.price }} ₽</p>
+    {{ dish.description|linebreaks }}
+  </div>
+{% endblock %}

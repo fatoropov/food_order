@@ -2,6 +2,11 @@ from django.shortcuts import render, get_object_or_404
 from .models import Category, Dish
 
 
+def index(request):
+    """Домашняя страница сервиса"""
+    return render(request, 'food_order/index.html')
+
+
 def dish_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
@@ -24,4 +29,4 @@ def dish_detail(request, id, slug):
                              available=True)
     return render(request,
                   'food_order/dish/detail.html',
-                  {'product': dish})
+                  {'dish': dish})
