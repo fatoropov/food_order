@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Dish
+from cart.forms import CartAddDishForm
 
 
 def index(request):
@@ -27,6 +28,8 @@ def dish_detail(request, id, slug):
                              id=id,
                              slug=slug,
                              available=True)
+    cart_dish_form = CartAddDishForm()
     return render(request,
                   'food_order/dish/detail.html',
-                  {'dish': dish})
+                  {'dish': dish,
+                   'cart_dish_form': cart_dish_form})

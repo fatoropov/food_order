@@ -1,0 +1,57 @@
+{% extends "food_order/base.html" %}
+{% load static %}
+
+{% block title %}
+  Корзина
+{% endblock %}
+
+{% block content %}
+  <h1>Корзина</h1>
+  <table class="cart">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Dish</th>
+        <th>Amount</th>
+        <th>Remove</th>
+        <th>Unit price</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in cart %}
+        {% with dish=item.dish %}
+        <tr>
+          <td>
+            <a href="{{ dish.get_absolute_url }}">
+              <img src="{% if dish.image %}{{ dish.image.url }}
+              {% else %}{% static 'img/no_image.png' %}{% endif %}">    
+            </a>
+          </td>
+          <td>{{ product.name }}</td>
+          <td>{{ item.amount }}</td>
+          <td>
+            <form action="{% url 'cart:cart_remove' dish.id %}" method="post">
+              <input type="submit" value="Remove">
+              {% csrf_token %}
+            </form>
+          </td>
+          <td class="num">{{ item.price }} rub</td>
+          <td class="num">{{ item.total_price }} rub</td>
+        </tr>
+        {% endwith %}
+      {% endfor %}
+      <tr class="total">
+        <td>Total</td>
+        <td colspan="4"></td>
+        <td class="num">{{ cart.get_total_price }} rub</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="text-right">
+    <a href="{% url 'food_order:dish_list' %}" class="button ligth">
+        Continue shopping
+    </a>
+    <a href="#" class="button">Checkout</a>
+  </p>
+{% endblock %}
