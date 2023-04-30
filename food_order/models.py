@@ -18,13 +18,36 @@ class Employee(models.Model):
         return self.name
 
 
+class Category(models.Model):
+    """ Модель категорий меню """
+
+    name = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200,
+                            unique=True)
+
+    class Meta:
+        ordering = ['name']
+        indexes = [
+            models.Index(fields=['name']),
+        ]
+        verbose_name = 'category'
+        verbose_name_plural = 'categories'
+
+    def __str__(self):
+        return self.name
+
+
 class Dish(models.Model):
     """ Модель блюда """
 
+    category = models.ForeignKey(Category,
+                                 related_name='dishes',
+                                 on_delete=models.CASCADE,
+                                 default=None)
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50,
                             unique=True)
-    image = models.ImageField(upload_to='dish/%Y/%m/%d',
+    image = models.ImageField(upload_to='dishes/%Y/%m/%d',
                               blank=True)
     description = models.TextField(blank=True)
     composition = models.CharField(max_length=250)
