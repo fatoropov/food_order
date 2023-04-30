@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Employee(models.Model):
@@ -36,6 +37,10 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('food_order:dish_list_by_category',
+                       args=[self.slug])
+
 
 class Dish(models.Model):
     """ Модель блюда """
@@ -67,6 +72,10 @@ class Dish(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('food_order:dish_detail',
+                       args=[self.id, self.slug])
 
 
 """
