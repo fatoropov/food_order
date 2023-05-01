@@ -52,7 +52,7 @@ class Cart:
         return sum(item['amount'] for item in self.cart.values())
 
     def get_total_price(self):
-        return sum(Decimal(item['price'] * item['amount']) for item
+        return sum(Decimal(item['price']) * item['amount'] for item
                    in self.cart.values())
 
     def clear(self):
