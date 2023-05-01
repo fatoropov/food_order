@@ -38,7 +38,6 @@ INSTALLED_APPS = [
 
     # сторонние приложения
     'bootstrap4',
-    'tempus_dominus',
 
 ]
 

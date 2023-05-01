@@ -6,7 +6,7 @@ class Order(models.Model):
     name = models.ForeignKey(Employee,
                              related_name='name_employee',
                              on_delete=models.CASCADE)
-    date = models.DateTimeField()
+    date = models.DateField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
