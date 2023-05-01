@@ -34,9 +34,11 @@ INSTALLED_APPS = [
     # мои приложения
     'food_order.apps.FoodOrderConfig',
     'cart.apps.CartConfig',
+    'orders.apps.OrdersConfig',
 
     # сторонние приложения
     'bootstrap4',
+    'tempus_dominus',
 
 ]
 

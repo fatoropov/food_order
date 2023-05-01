@@ -14,8 +14,8 @@
         <th>Dish</th>
         <th>Amount</th>
         <th>Remove</th>
-        <th>Unit price</th>
         <th>Price</th>
+        <th>Total price</th>
       </tr>
     </thead>
     <tbody>
@@ -51,6 +51,6 @@
   <p class="text-right">
     <a href="{% url 'food_order:dish_list' %}" class="button 
     light">Continue shopping</a>
-    <a href="#" class="button">Checkout</a>
+    <a href="{% url 'orders:order_create' %}" class="button">Checkout</a>
   </p>
 {% endblock %}
