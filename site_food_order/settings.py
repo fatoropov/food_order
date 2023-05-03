@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'food_order.apps.FoodOrderConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'users.apps.UsersConfig',
 
     # сторонние приложения
     'bootstrap4',

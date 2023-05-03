@@ -6,31 +6,56 @@
 {% endblock %}
 
 {% block content %}
-  <div id="sidebar">
-    <h3>Категории</h3>
-    <ul>
-      <li {% if not category %}class="selected"{% endif %}>
-        <a href="{% url 'food_order:dish_list' %}">Все</a>
-      </li>
-      {% for c in categories %}
-        <li {% if category.slug == c.slug %}class="selected"{% endif %}>
-          <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
-  <div id="main" class="product-list">
-    <h1>{% if category %}{{ category.name }}{% else %}Продукты
-      {% endif %}</h1>
-      {% for dish in dishes %}
-        <div class="item">
-          <a href="{{ dish.get_absolute_url }}">
-            <img src="{% if dish.image %}{{ dish.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
-          </a>
-          <a href="{{ dish.get_absolute_url }}">{{ dish.name }}</a>
-          <br>
-          {{ dish.price }} ₽
+  <section id="about">
+    <div class="container-fluid">
+      <!-- row 3 -->
+      <div class="row">
+        <div class="col-sm-1">
+          <div class="list_group">
+            <or {% if not category %}class="selected"{% endif %}>
+              <a href="{% url 'food_order:dish_list' %}" class="list-group-item list-group-item-action active">Все</a>
+            </or>
+            {% for c in categories %}
+              <or {% if category.slug == c.slug %}class="selected"{% endif %}>
+                <a href="{{ c.get_absolute_url }}" class="list-group-item list-group-item-action">{{ c.name }}</a>
+              </or>
+            {% endfor %}
+          </div>
         </div>
-      {% endfor %}
-  </div>
+        <div class="col-sm-11 album py-5">
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for dish in dishes %}
+            <div class="col">
+              <div class="card shadow-sm">
+                <a href="{{ dish.get_absolute_url }}">
+                  <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>{{ dish.name }}</title><rect width="100%" height="100%" fill="#55595c"/><image x="0" y="0" width="100%" height="100%" xlink:href="{% if dish.image %}{{ dish.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}"/></svg>
+                </a>
+                <div class="card-body">
+                  <h4 p class="card-text text-center text-primary">{{ dish.name }}</a></p></h4>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h4 p class="card-text text-left">{{ dish.price }} р.</p></h4>
+                    <div class="btn-group">
+                      <form action="{% url 'cart:cart_add' dish.id %}" method="post">
+                        {{ cart_dish_form }}
+                        {% csrf_token %}
+                        <button role="submit" class="btn btn-primary">В корзину</button>
+                        <input type="hidden" name="next" />
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock %}
+
+<script src="src/bootstrap-input-spinner.js"></script>
+<script>
+    $("input[type='number']").inputSpinner();
+</script>

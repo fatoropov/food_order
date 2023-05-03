@@ -3,6 +3,5 @@
 __pycache__/
 site_food_order/__pycache__
 migrations/
-*.jpg
-.png
-db.sqlite3
+js/
+*.vue

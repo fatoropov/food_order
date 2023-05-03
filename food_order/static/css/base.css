@@ -20,7 +20,7 @@ a:hover {
 }
 
 a.button, input[type="submit"] {
-    color:#fff;
+    color:#ffffff;
     background:#5993bb;
     border-radius:4px;
     padding:10px 20px;
@@ -185,7 +185,7 @@ ul.errorlist {
 }
 
 .product-list .item {
-    width:25%;
+    width:40%;
     padding:10px 20px 10px 0;
     float:left;
     text-align:center;
@@ -193,7 +193,7 @@ ul.errorlist {
 }
 
 .product-list .item img {
-    width:100%;
+    width: 100%;
     margin-bottom:8px;
 }
 

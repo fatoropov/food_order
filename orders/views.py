@@ -14,7 +14,7 @@ def order_create(request):
                 OrderItem.objects.create(order=order,
                                          dish=item['dish'],
                                          price=item['price'],
-                                         amount=item['amount'])
+                                         quantity=item['quantity'])
             cart.clear()
             return render(request,
                           'orders/order/created.html',

@@ -12,6 +12,7 @@ def dish_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
     dishes = Dish.objects.filter(available=True)
+    cart_dish_form = CartAddDishForm()
     if category_slug:
         category = get_object_or_404(Category,
                                      slug=category_slug)
@@ -20,7 +21,8 @@ def dish_list(request, category_slug=None):
                   'food_order/dish/list.html',
                   {'category': category,
                    'categories': categories,
-                   'dishes': dishes})
+                   'dishes': dishes,
+                   'cart_dish_form': cart_dish_form})
 
 
 def dish_detail(request, id, slug):

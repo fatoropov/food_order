@@ -13,8 +13,8 @@ def cart_add(request, dish_id):
     if form.is_valid():
         cd = form.cleaned_data
         cart.add(dish=dish,
-                 amount=cd['amount'],
-                 override_amount=cd['override'])
+                 quantity=cd['quantity'],
+                 override_quantity=cd['override'])
     return redirect('cart:cart_detail')
 
 

@@ -1,10 +1,11 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 
 class Employee(models.Model):
     """ Модель сотрудника """
-
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     name = models.CharField(max_length=30)
     slug = models.SlugField(max_length=30)
     department = models.CharField(max_length=25)
@@ -76,14 +77,3 @@ class Dish(models.Model):
     def get_absolute_url(self):
         return reverse('food_order:dish_detail',
                        args=[self.id, self.slug])
-
-
-"""
-class Order(models.Model):
-    Модель заказа
-
-    employee = models.ForeignKey(Employee,
-                                 related_name='orders',
-                                 on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_created=True)
-"""

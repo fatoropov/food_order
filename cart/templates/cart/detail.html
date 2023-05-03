@@ -1,56 +1,83 @@
 {% extends "food_order/base.html" %}
 {% load static %}
 
-{% block title %}
-  Корзина
+{% block page_header %}
+  <h1>Корзина</h1>
 {% endblock %}
 
 {% block content %}
-  <h1>Корзина</h1>
-  <table class="cart">
-    <thead>
-      <tr>
-        <th>Image</th>
-        <th>Dish</th>
-        <th>Amount</th>
-        <th>Remove</th>
-        <th>Price</th>
-        <th>Total price</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for item in cart %}
-        {% with dish=item.dish %}
-        <tr>
-          <td>
-            <a href="{{ dish.get_absolute_url }}">
-              <img src="{% if dish.image %}{{ dish.image.url }}
-              {% else %}{% static 'img/no_image.png' %}{% endif %}">    
-            </a>
-          </td>
-          <td>{{ dish.name }}</td>
-          <td>{{ item.amount }}</td>
-          <td>
-            <form action="{% url 'cart:cart_remove' dish.id %}" method="post">
-              <input type="submit" value="Remove">
-              {% csrf_token %}
-            </form>
-          </td>
-          <td class="num">{{ item.price }} ₽</td>
-          <td class="num">{{ item.total_price }} ₽</td>
-        </tr>
-        {% endwith %}
-      {% endfor %}
-      <tr class="total">
-        <td>Total</td>
-        <td colspan="4"></td>
-        <td class="num">{{ cart.get_total_price }} ₽</td>
-      </tr>
-    </tbody>
-  </table>
-  <p class="text-right">
-    <a href="{% url 'food_order:dish_list' %}" class="button 
-    light">Continue shopping</a>
-    <a href="{% url 'orders:order_create' %}" class="button">Checkout</a>
-  </p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <table class="table table-striped shoplist">
+        <thead class="shopunit" data-sizes="[&quot;4&quot;, &quot;3&quot;, &quot;2&quot;, &quot;1&quot;]">
+          <tr>
+            <th class="primary">
+              <h4 class="text-center"></h4>
+            </th>
+            <th class="primary">
+              <h4 class="text-center">Блюдо</h4>
+            </th>
+            <th class="primary">
+              <h4 class="text-center">Количество</h4>
+            </th>
+            <th class="primary">
+              <h4 class="text-center">Стоимость</h4>
+            </th>
+            <th class="primary">
+              <h4 class="text-center">Сумма</h4>
+            </th>
+            <th class="primary">
+              <h4 class="text-center"></h4>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in cart %}
+            {% with dish=item.dish %}
+              <tr>
+                <td>
+                  <div class="card-img-top">
+                    <a href="{{ dish.get_absolute_url }}">
+                      <img src="{% if dish.image %}{{ dish.image.url }}
+                      {% else %}{% static 'img/no_image.png' %}{% endif %}" width="225" height="150" >    
+                    </a>
+                  </div>
+                </td>
+                <td>
+                  <h5 class="text-center">{{ dish.name }}</h5>
+                </td>
+                <td>
+                  <h5 class="text-center">{{ item.quantity }}</h5>
+                </td>
+                <td>
+                  <h5 class="text-center">{{ dish.price }} ₽</h5>
+                </td>
+                <td>
+                  <h5 class="text-center">{{ item.total_price }} ₽</h5>
+                </td>
+                <td>
+                  <form action="{% url 'cart:cart_remove' dish.id %}" method="post">
+                    <button role="submit" class="btn btn-outline-danger">Удалить</button>
+                    <input type="hidden">
+                    {% csrf_token %}
+                  </form>
+                </td>
+              </tr>
+            {% endwith %}
+          {% endfor %}
+          <tr class="text-right">
+            <td colspan="4"></td>
+            <td><h3>Итого:</h3></td>
+            <td class="num">{{ cart.get_total_price }} ₽</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="text-right">
+        <a  href="{% url 'food_order:dish_list' %}" class="btn btn-outline-primary">Continue shopping</a>
+        <a href="{% url 'orders:order_create' %}" class="btn btn-primary">Checkout</a>
+      </p>
+    </div>
+  </div>
+</div>
 {% endblock %}

@@ -12,16 +12,16 @@ class Cart:
             cart = self.session[settings.CART_SESSION_ID] = {}
         self.cart = cart
 
-    def add(self, dish, amount=1, override_amount=False):
+    def add(self, dish, quantity=1, override_quantity=False):
         """ Добавить товар в корзину и обновляет кол-во """
         dish_id = str(dish.id)
         if dish_id not in self.cart:
-            self.cart[dish_id] = {'amount': 0,
+            self.cart[dish_id] = {'quantity': 0,
                                   'price': str(dish.price)}
-        if override_amount:
-            self.cart[dish_id]['amount'] = amount
+        if override_quantity:
+            self.cart[dish_id]['quantity'] = quantity
         else:
-            self.cart[dish_id]['amount'] += amount
+            self.cart[dish_id]['quantity'] += quantity
         self.save()
 
     def save(self):
@@ -44,15 +44,15 @@ class Cart:
             cart[str(dish.id)]['dish'] = dish
         for item in cart.values():
             item['price'] = Decimal(item['price'])
-            item['total_price'] = item['price'] * item['amount']
+            item['total_price'] = item['price'] * item['quantity']
             yield item
 
     def __len__(self):
         """ Считает кол-во товаров в корзине """
-        return sum(item['amount'] for item in self.cart.values())
+        return sum(item['quantity'] for item in self.cart.values())
 
     def get_total_price(self):
-        return sum(Decimal(item['price']) * item['amount'] for item
+        return sum(Decimal(item['price']) * item['quantity'] for item
                    in self.cart.values())
 
     def clear(self):

@@ -1,26 +1,40 @@
 {% extends "food_order/base.html" %}
 {% load static %}
 
-{% block title %}
-  {{ dish.name }}
+{% block page_header %}
+  <h1>Описание</h1>
 {% endblock %}
 
+
 {% block content %}
-  <div class="product-detail">
-    <img src="{% if dish.image %}{{ dish.image.url }}{% else %}
-    {% static 'img/no_image.png' %}{% endif %}">
-    <h1>{{ dish.name }}</h1>
-    <h2>
-        <a href="{{ dish.category.get_absolute_url }}">
-            {{ dish.category }}
-        </a>
-    </h2>
-    <p class="price">{{ dish.price }} ₽</p>
-    <form action="{% url 'cart:cart_add' dish.id %}" method="post">
-      {{ cart_dish_form }}
-      {% csrf_token %}
-      <input type="submit" value="Add to cart">
-    </form>
-    {{ dish.description|linebreaks }}
-  </div>
+    <!-- Product section-->
+    <section class="py-5">
+        <div class="container-fluid px-4 px-lg-5 my-5">
+            <div class="row gx-4 gx-lg-5 align-items-center">
+                <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0"
+                                           src="{{ dish.image.url }}" alt="..."/></div>
+                <div class="col-md-6">
+
+                    <h1 class="display-5 fw-bolder">{{ dish.name }}</h1>
+                    <p class="lead">Состав:{% if dish.composition %} {{ dish.composition }} {% else %} Состав
+                      отсутствует... {% endif %}</p>
+                    <p class="lead">{% if dish.description %} {{ dish.description }} {% else %} Описание
+                        отсутствует... {% endif %}</p>
+                    <div class="fs-5 mt-5 mb-3">
+                        <span>Цена: {{ dish.price }} руб.</span>
+                    </div>
+                    <div class="fs-5 mt-5 mb-3">
+                      <p><form action="{% url 'cart:cart_add' dish.id %}" method="post">
+                        {{ cart_dish_form }}
+                        {% csrf_token %}
+                        <button role="submit" class="btn btn-primary">В корзину</button>
+                        <input type="hidden" name="next" />
+                      </form></p>
+                      
+                      <a  href="{% url 'food_order:dish_list' %}" class="btn btn-primary">Continue shopping</a>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}
