@@ -1,9 +1,10 @@
 from django.db import models
-from food_order.models import Employee, Dish
+from food_order.models import Dish
+from django.contrib.auth.models import User
 
 
 class Order(models.Model):
-    name = models.ForeignKey(Employee,
+    name = models.ForeignKey(User,
                              related_name='name_employee',
                              on_delete=models.CASCADE)
     date = models.DateField()

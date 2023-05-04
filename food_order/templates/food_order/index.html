@@ -1,13 +1,14 @@
 {% extends "food_order/base.html" %}
 
 {% block page_header %}
-  <div class="jumborton">
-    <h1 class="display-3">Service for ordering your favorite food</h1>
 
-    <p class="lead">Order, enjoy, live</p>
+    <div class="jumborton">
+      <h1 class="display-3">Сервис для корпоративного заказа еды</h1>
 
-    <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
-        role="button">Register &raquo;</a>
-  </div>
+      <p class="lead">Регистрируйся и заказывай любимую еду</p>
+
+      <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
+          role="button">Зарегистрироваться &raquo;</a>
+    </div>
 
 {% endblock page_header %}

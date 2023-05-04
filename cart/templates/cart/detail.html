@@ -8,7 +8,7 @@
 {% block content %}
 <div class="container">
   <div class="row">
-    <div class="col-md-10 col-md-offset-1">
+    <div class="col-md-9 col-sm-3 col-md-offset-1">
       <table class="table table-striped shoplist">
         <thead class="shopunit" data-sizes="[&quot;4&quot;, &quot;3&quot;, &quot;2&quot;, &quot;1&quot;]">
           <tr>
@@ -74,8 +74,8 @@
         </tbody>
       </table>
       <p class="text-right">
-        <a  href="{% url 'food_order:dish_list' %}" class="btn btn-outline-primary">Continue shopping</a>
-        <a href="{% url 'orders:order_create' %}" class="btn btn-primary">Checkout</a>
+        <a  href="{% url 'food_order:dish_list' %}" class="btn btn-outline-primary">Продолжить покупки</a>
+        <a href="{% url 'orders:order_create' %}" class="btn btn-primary">Перейти к заказу</a>
       </p>
     </div>
   </div>

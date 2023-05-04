@@ -35,7 +35,7 @@
                           Корзина</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="{% url 'cart:cart_detail' %}">
+                      <a class="nav-link" href="{% url 'orders:orders_history' %}">
                           История заказов</a>
                     </li>
                 </ul>
@@ -45,26 +45,24 @@
                         <span class="navbar-text">{{ user.username }}</span>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
+                        <a class="nav-link" href="{% url 'users:logout' %}">Выход</a>
                       </li>
                     {% else %}
                       <li class="nav-item">
-                        <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+                        <a class="nav-link" href="{% url 'users:register' %}">Зарегистрироваться</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="{% url 'users:login' %}">Log in</a></li>
+                        <a class="nav-link" href="{% url 'users:login' %}">Войти</a></li>
                     {% endif %}
                 </ul>
             </div>
         </nav>
-        <main role="main" class="container-fluid">
-            <div class="pb-2 mb-2 border-bottom">
+            <div class="container pb-2 mb-2 border-bottom">
                 {% block page_header %}{% endblock page_header %}
             </div>
-            <div class="pb-2 mb-2 noborder" >
+            <div class="container-fluid pb-2 mb-2 noborder" >
                 {% block content %}{% endblock content %}
             </div>
-        </main>
 
     </body>
 

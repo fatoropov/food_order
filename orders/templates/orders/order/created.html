@@ -1,11 +1,16 @@
 {% extends "food_order/base.html" %}
 
-{% block title %}
-  Thank you
+{% block page_header %}
+<div class="text-center">
+  <h1>Спасибо за заказ</h1>
+</div>
 {% endblock %}
 
 {% block content %}
-  <h1>Thank you</h1>
-  <p>Your order has been successfully completed. Your order number is
-  <strong>{{ order.id }}</strong>.</p>
+<div class="text-center">
+  <h3>
+    <p>Ваш заказ оформлен. Номер вашего заказа -
+    <strong>{{ order.id }}</strong>.</p>
+  </h3>
+</div>
 {% endblock %}

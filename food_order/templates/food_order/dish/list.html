@@ -13,7 +13,7 @@
         <div class="col-sm-1">
           <div class="list_group">
             <or {% if not category %}class="selected"{% endif %}>
-              <a href="{% url 'food_order:dish_list' %}" class="list-group-item list-group-item-action active">Все</a>
+              <a href="{% url 'food_order:dish_list' %}" class="list-group-item list-group-item-action">Все</a>
             </or>
             {% for c in categories %}
               <or {% if category.slug == c.slug %}class="selected"{% endif %}>
@@ -21,8 +21,36 @@
               </or>
             {% endfor %}
           </div>
+          <br>
+          <div>
+            <form action="{% url 'cart:cart_add_random_food' %}" method="post">
+              {{ cart_dish_form.override }}
+              {% csrf_token %}
+              <button role="submit" class="btn btn-success">Мне повезет с едой</button>
+              <input type="hidden" name="next" />
+            </form>
+          </div>
+          <br>
+          <div>
+            <form action="{% url 'cart:cart_add_random_drink' %}" method="post">
+              {{ cart_dish_form.override }}
+              {% csrf_token %}
+              <button role="submit" class="btn btn-success">Мне повезет с напитком</button>
+              <input type="hidden" name="next" />
+            </form>
+          </div>
         </div>
         <div class="col-sm-11 album py-5">
+          {% if messages %}
+            <ul class="messages">
+              {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                  {{ message|safe }}
+                  <a href="#" class="close">x</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             {% for dish in dishes %}
             <div class="col">
