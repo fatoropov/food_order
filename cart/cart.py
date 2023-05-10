@@ -28,11 +28,14 @@ class Cart:
         """ Сохраняет изменение сеанса """
         self.session.modified = True
 
-    def remove(self, dish):
+    def remove(self, dish, quantity=1, override_quantity=False):
         """ Удалить товар из корзины """
         dish_id = str(dish.id)
         if dish_id in self.cart:
-            del self.cart[dish_id]
+            if override_quantity:
+                del self.cart[dish_id]
+            else:
+                self.cart[dish_id]['quantity'] -= quantity
             self.save()
 
     def __iter__(self):

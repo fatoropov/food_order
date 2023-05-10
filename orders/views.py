@@ -45,7 +45,7 @@ def get_orders_history(request):
     for order in orders:
         if int(order['id']) in list(orders_item_sum.keys()):
             order['price'] = orders_item_sum[int(order['id'])]
-    print(orders)
+
     return render(request,
                   'orders/order/history.html',
                   {'orders': orders})

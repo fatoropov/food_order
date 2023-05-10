@@ -17,3 +17,9 @@ class CartAddDishForm(forms.Form):
     override = forms.BooleanField(required=False,
                                   initial=False,
                                   widget=forms.HiddenInput)
+
+
+class CartUpdateQuantityDish(forms.Form):
+    override = forms.BooleanField(required=False,
+                                  initial=False,
+                                  widget=forms.HiddenInput)

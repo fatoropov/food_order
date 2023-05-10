@@ -10,7 +10,7 @@
     <div class="container-fluid">
       <!-- row 3 -->
       <div class="row">
-        <div class="col-sm-1">
+        <div class="col-sm-4 col-md-2">
           <div class="list_group">
             <or {% if not category %}class="selected"{% endif %}>
               <a href="{% url 'food_order:dish_list' %}" class="list-group-item list-group-item-action">Все</a>
@@ -26,7 +26,7 @@
             <form action="{% url 'cart:cart_add_random_food' %}" method="post">
               {{ cart_dish_form.override }}
               {% csrf_token %}
-              <button role="submit" class="btn btn-success">Мне повезет с едой</button>
+              <button role="submit" class="btn btn-lg btn-sm btn-success">Мне повезет с едой</button>
               <input type="hidden" name="next" />
             </form>
           </div>
@@ -35,47 +35,55 @@
             <form action="{% url 'cart:cart_add_random_drink' %}" method="post">
               {{ cart_dish_form.override }}
               {% csrf_token %}
-              <button role="submit" class="btn btn-success">Мне повезет с напитком</button>
+              <button role="submit" class="btn btn-lg btn-sm btn-success">Мне повезет с напитком</button>
               <input type="hidden" name="next" />
             </form>
           </div>
         </div>
-        <div class="col-sm-11 album py-5">
-          {% if messages %}
-            <ul class="messages">
-              {% for message in messages %}
-                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
-                  {{ message|safe }}
-                  <a href="#" class="close">x</a>
-                </li>
-              {% endfor %}
-            </ul>
-          {% endif %}
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            {% for dish in dishes %}
-            <div class="col">
-              <div class="card shadow-sm">
-                <a href="{{ dish.get_absolute_url }}">
-                  <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>{{ dish.name }}</title><rect width="100%" height="100%" fill="#55595c"/><image x="0" y="0" width="100%" height="100%" xlink:href="{% if dish.image %}{{ dish.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}"/></svg>
-                </a>
-                <div class="card-body">
-                  <h4 p class="card-text text-center text-primary">{{ dish.name }}</a></p></h4>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <h4 p class="card-text text-left">{{ dish.price }} р.</p></h4>
-                    <div class="btn-group">
-                      <form action="{% url 'cart:cart_add' dish.id %}" method="post">
-                        {{ cart_dish_form }}
-                        {% csrf_token %}
-                        <button role="submit" class="btn btn-primary">В корзину</button>
-                        <input type="hidden" name="next" />
-                      </form>
+        
+
+        <div class="col-sm-8 col-md-9 ">
+          <div class="album py-5">
+            <div class="container">
+              <div class="row">
+                {% if messages %}
+                  <ul class="messages">
+                    {% for message in messages %}
+                      <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                        {{ message|safe }}
+                        <a href="#" class="close">x</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+              <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 g-3">
+                {% for dish in dishes %}
+                <div class="col-sm-12 col-md-6">
+                  <div class="card mb-4 box-shadow">
+                    <a href="{{ dish.get_absolute_url }}">
+                      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>{{ dish.name }}</title><rect width="100%" height="100%" fill="#55595c"/><image x="0" y="0" width="100%" height="100%" xlink:href="{% if dish.image %}{{ dish.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}"/></svg>
+                    </a>
+                    <div class="card-body">
+                      <h4 p class="card-text text-center text-primary">{{ dish.name }}</a></p></h4>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <h4 p class="card-text text-left">{{ dish.price }} р.</p></h4>
+                        <div class="btn-group">
+                          <form action="{% url 'cart:cart_add' dish.id %}" method="post">
+                            {{ cart_dish_form }}
+                            {% csrf_token %}
+                            <button role="submit" class="btn btn-primary">В корзину</button>
+                            <input type="hidden" name="next" />
+                          </form>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
+
+                {% endfor %}
               </div>
             </div>
-
-            {% endfor %}
           </div>
         </div>
       </div>
