@@ -1,14 +1,20 @@
 {% extends "food_order/base.html" %}
 {% load bootstrap4 %}
 
+{% block page_header %}
+  <h1 class="display-3">Регистрация</h1>
+{% endblock %}
+
 {% block content %}
+<div class="container">
   <form method="post" action="{% url 'users:register' %}" class="form">
     {% csrf_token %}
     {% bootstrap_form form %}
     {% buttons %}
-    <button name="submit" class="btn btn-primary">Log in</button>
+    <button name="submit" class="btn btn-primary">Зарегистрироваться</button>
     {% endbuttons %}
 
     <input type="hidden" name="next" value="{% url 'food_order:index' %}" />
   </form>
+</div>
 {% endblock content %}

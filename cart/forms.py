@@ -6,7 +6,7 @@ PRODUCT_QUANTITY_CHOICES = [(i, str(i)) for i in range(1, 21)]
 
 class CartAddDishForm(forms.Form):
     quantity = forms.IntegerField(
-        widget=forms.NumberInput(attrs={'class': 'bootstrap-input-spinner',
+        widget=forms.NumberInput(attrs={'style': 'width:7ch',
                                         'value': 1,
                                         'min': 1,
                                         'max': 20,

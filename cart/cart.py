@@ -32,7 +32,7 @@ class Cart:
         """ Удалить товар из корзины """
         dish_id = str(dish.id)
         if dish_id in self.cart:
-            if override_quantity:
+            if override_quantity or self.cart[dish_id]['quantity'] == 1:
                 del self.cart[dish_id]
             else:
                 self.cart[dish_id]['quantity'] -= quantity
