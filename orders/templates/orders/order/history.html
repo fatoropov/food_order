@@ -17,7 +17,7 @@
               <h4 class="text-center">Номер заказа</h4>
             </th>
             <th class="primary">
-              <h4 class="text-center">Дата заказа</h4>
+              <h4 class="text-center">Дата доставки</h4>
             </th>
             <th class="primary">
               <h4 class="text-center">Сотрудник</h4>
@@ -51,6 +51,7 @@
           {% endfor %}
         </tbody>
       </table>
+      {% include "pagination.html" with page=orders %}
       <p class="text-right">
         <a  href="{% url 'food_order:dish_list' %}" class="btn btn-outline-primary">Продолжить покупки</a>
       </p>
