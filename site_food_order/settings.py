@@ -23,6 +23,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # мои приложения
+    'food_order.apps.FoodOrderConfig',
+    'cart.apps.CartConfig',
+    'orders.apps.OrdersConfig',
+    'users.apps.UsersConfig',
+
     # приложения django по умолчанию
     'django.contrib.admin',
     'django.contrib.auth',
@@ -30,12 +36,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # мои приложения
-    'food_order.apps.FoodOrderConfig',
-    'cart.apps.CartConfig',
-    'orders.apps.OrdersConfig',
-    'users.apps.UsersConfig',
 
     # сторонние приложения
     'bootstrap4',
@@ -124,6 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -136,3 +137,11 @@ MEDIA_ROOT = BASE_DIR / 'media'
 CART_SESSION_ID = 'cart'
 
 LOGIN_URL = '../../users/login/'
+LOGOUT_URL = 'logout'
+
+# Конфигурация сервера электронной почты
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

@@ -7,11 +7,11 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-  <div class="row">
-    <div class="col-md-9 col-sm-12 col-md-offset-1">
+
+  <div class="row mr-auto">
+    <div class="col-md-12 col-sm-12">
       <table class="table table-striped shoplist">
-        <thead class="shopunit" data-sizes="[&quot;4&quot;, &quot;3&quot;, &quot;2&quot;, &quot;1&quot;]">
+        <thead class="shopunit" >
           <tr>
             <th class="primary">
               <h4 class="text-center">Номер заказа</h4>
@@ -26,7 +26,7 @@
               <h4 class="text-center">Сумма</h4>
             </th>
             <th class="primary">
-              <h4 class="text-center"></h4>
+              <h4 class="text-center">Отправить отчет на почту</h4>
             </th>
           </tr>
         </thead>
@@ -46,6 +46,7 @@
                   <h5 class="text-center">{{ order.price }} ₽</h5>
               </td>
               <td>
+                <a href="{% url 'orders:order_pdf' order.id %}"><h5 class="text-center"><i class="bi bi-envelope-at-fill"></i> Отправить</h5></a>
               </td>
             </tr>
           {% endfor %}
@@ -57,5 +58,5 @@
       </p>
     </div>
   </div>
-</div>
+
 {% endblock %}

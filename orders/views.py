@@ -1,10 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Order, OrderItem
 from .forms import OrderCreateForm
 from cart.cart import Cart
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.conf import settings
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from .send import send_report
+import weasyprint
 
 
 def order_create(request):
@@ -64,3 +69,16 @@ def get_orders_history(request):
     return render(request,
                   'orders/order/history.html',
                   {'orders': orders})
+
+
+def order_pdf(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    html = render_to_string('orders/order/pdf.html',
+                            {'order': order})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'filename=order_{order.id}.pdf'
+    weasyprint.HTML(string=html).write_pdf(response,
+        stylesheets=[weasyprint.CSS(
+                     settings.STATIC_ROOT / 'css/pdf.css')])
+    send_report(request, order_id)
+    return redirect('orders:orders_history')
