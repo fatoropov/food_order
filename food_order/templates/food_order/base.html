@@ -5,59 +5,71 @@
     <meta name="viewport" content="width=device-width, inital-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="base.css">
 
     <title>Order food</title>
 
   </head>
   <body>
-      <nav class="navbar navbar-expand-md navbar-light  mb-4 border" style="background-color: #1b8be7;">
+      <nav class="navbar navbar-expand-md navbar-light  mb-4 border" style="background-color: #ffffff;">
+        {% if user.is_authenticated %}
+          <a class="navbar-brand" href="{% url 'food_order:dish_list'%}">
+              Order food</a>
+        {% else %}
           <a class="navbar-brand" href="{% url 'food_order:index'%}">
               Order food</a>
+        {% endif %}
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarCollapse" aria-controls="navbarCollapse"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item my-2">
+              <a class="nav-link" href="{% url 'food_order:dish_list' %}">
+                <i class="bi bi-shop-window"></i> Меню</a>
+            </li>
 
-          <button class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarCollapse" aria-controls="navbarCollapse"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-              <ul class="navbar-nav mr-auto">
-                  <li class="nav-item">
-                      <a class="nav-link" href="{% url 'food_order:dish_list' %}">
-                          Меню</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'cart:cart_detail' %}">
-                        Корзина</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'orders:orders_history' %}">
-                        История заказов</a>
-                  </li>
-              </ul>
-              <ul class="navbar-nav ml-auto">
-                  {% if user.is_authenticated %}
-                    <li class="nav-item">
-                      <span class="navbar-text">{{ user.username }}</span>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="{% url 'users:logout' %}">Выход</a>
-                    </li>
-                  {% else %}
-                    <li class="nav-item">
-                      <a class="nav-link" href="{% url 'users:register' %}">Зарегистрироваться</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="{% url 'users:login' %}">Войти</a></li>
-                  {% endif %}
-              </ul>
-          </div>
+            {% if user.is_authenticated %}
+              <li class="nav-item dropdown my-2">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="bi bi-person-circle mr-2 mt-2"></i>{{ user.username }}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" href="{% url 'users:edit' %}">Мои данные</a>
+                  <a class="dropdown-item" href="{% url 'orders:orders_history' %}">Мои заказы</a>
+                  <a class="dropdown-item" href="{% url 'users:logout' %}">Выйти</a>
+                </div>
+              </li>
+            {% else %}
+              <li class="nav-item my-2">
+                <a class="nav-link-inline btn btn-outline-primary mr-2 mt-md-0" href="{% url 'users:register' %}" role="button">Зарегистрироваться</a>
+              </li>
+              <li class="nav-item my-2">
+                <a class="nav-link-inline btn btn-outline-primary mt-sm-1 mt-md-0" href="{% url 'users:login' %}" role="button">Войти</a>
+              </li>
+            {% endif %}
+
+            {% with total_items=cart|length %}
+            {% if total_items > 0 %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'cart:cart_detail' %}">
+                  <i class="bi bi-basket btn btn-outline-primary mr-sm-2 mr-md-0 mt-md-0" href="{% url 'cart:cart_detail' %}">
+                    {{ cart.get_total_price }} руб.
+                  </i>
+                </a>
+              </li>
+            {% endif %}
+          {% endwith %}
+          </ul>
+        </div>
       </nav>
         <div class="container pb-2 mb-2 border-bottom">
             {% block page_header %}{% endblock page_header %}
         </div>
-        <div class="container-fluid pb-2 mb-2 noborder" >
+        <div class="container pb-2 mb-2 noborder" >
             {% block content %}{% endblock content %}
         </div>
 

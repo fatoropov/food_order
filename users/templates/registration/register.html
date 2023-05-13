@@ -14,7 +14,7 @@
     <button name="submit" class="btn btn-primary">Зарегистрироваться</button>
     {% endbuttons %}
 
-    <input type="hidden" name="next" value="{% url 'food_order:index' %}" />
+    <input type="hidden" name="next" value="{% url 'food_order:dish_list' %}">
   </form>
 </div>
 {% endblock content %}

@@ -10,7 +10,9 @@
       <p class="lead">Регистрируйся и заказывай любимую еду</p>
 
       <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
-          role="button">Зарегистрироваться &raquo;</a>
+         role="button">Зарегистрироваться</a>
+      <a class="btn btn-lg btn-outline-primary" href="{% url 'users:login' %}"
+         role="button">Войти</a>
     </div>
 
 {% endblock page_header %}
