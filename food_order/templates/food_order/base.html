@@ -6,7 +6,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" type="text/css" href="base.css">
+    <!--<link rel="stylesheet" href="../site_food_order/static/base.css">-->
 
     <title>Order food</title>
 
@@ -20,14 +20,24 @@
           <a class="navbar-brand" href="{% url 'food_order:index'%}">
               Order food</a>
         {% endif %}
-
+        {% with total_items=cart|length %}
+        {% if total_items > 0 %}
+          <or class="nav-item d-block d-sm-block d-md-none ml-auto">
+            <a class="nav-link" href="{% url 'cart:cart_detail' %}">
+              <i class="bi bi-basket btn btn-outline-primary mr-sm-2 mr-md-0 mt-md-0" href="{% url 'cart:cart_detail' %}">
+                {{ cart.get_total_price }} руб.
+              </i>
+            </a>
+          </or>
+        {% endif %}
+        {% endwith %}
         <button class="navbar-toggler" type="button" data-toggle="collapse"
         data-target="#navbarCollapse" aria-controls="navbarCollapse"
         aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="collapse navbar-collapse ml-auto" id="navbarCollapse">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item my-2">
               <a class="nav-link" href="{% url 'food_order:dish_list' %}">
@@ -54,10 +64,9 @@
                 <a class="nav-link-inline btn btn-outline-primary mt-sm-1 mt-md-0" href="{% url 'users:login' %}" role="button">Войти</a>
               </li>
             {% endif %}
-
             {% with total_items=cart|length %}
             {% if total_items > 0 %}
-              <li class="nav-item">
+              <li class="nav-item d-none d-md-block ml-auto">
                 <a class="nav-link" href="{% url 'cart:cart_detail' %}">
                   <i class="bi bi-basket btn btn-outline-primary mr-sm-2 mr-md-0 mt-md-0" href="{% url 'cart:cart_detail' %}">
                     {{ cart.get_total_price }} руб.
@@ -65,7 +74,7 @@
                 </a>
               </li>
             {% endif %}
-          {% endwith %}
+            {% endwith %}
           </ul>
         </div>
       </nav>

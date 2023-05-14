@@ -2,10 +2,9 @@
 <body>
   <h1>Order food</h1>
   <p>
-    Заказ №{{ order.id }}<br>
-    <span class="secondary">
-      {{ order.created|date:"M d, Y" }}
-    </span>
+    Заказ №{{ order.id }} от {{ order.created|date:"d M, Y" }}
+    <br>
+    Доставить {{ order.date| date:"d M, Y" }}
   </p>
   <h3>Заказ на</h3>
   <p>

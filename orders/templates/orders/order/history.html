@@ -9,24 +9,25 @@
 {% block content %}
 
   <div class="row mr-auto">
-    <div class="col-md-12 col-sm-12">
+    <div class="col-md-1 col-lg-2"></div>
+    <div class=" col-12 col-sm-12 col-md-10 col-lg-8">
       <table class="table table-striped shoplist">
         <thead class="shopunit" >
           <tr>
             <th class="primary">
-              <h4 class="text-center">Номер заказа</h4>
+              <h5 class="text-center">Номер заказа</h5>
             </th>
             <th class="primary">
-              <h4 class="text-center">Дата доставки</h4>
+              <h5 class="text-center">Дата доставки</h5>
             </th>
             <th class="primary">
-              <h4 class="text-center">Сотрудник</h4>
+              <h5 class="text-center">Сотрудник</h5>
             </th>
             <th class="primary">
-              <h4 class="text-center">Сумма</h4>
+              <h5 class="text-center">Сумма</h5>
             </th>
             <th class="primary">
-              <h4 class="text-center">Отправить отчет на почту</h4>
+              <h5 class="text-center">Отправить отчет на почту</h5>
             </th>
           </tr>
         </thead>
@@ -34,19 +35,19 @@
           {% for order in orders %}
             <tr>
               <td>
-                <h5 class="text-center">{{ order.id }}</h5>
+                <h6 class="text-center">{{ order.id }}</h6>
               </td>
               <td>
-                <h5 class="text-center">{{ order.date }}</h5>
+                <h6 class="text-center">{{ order.date }}</h6>
               </td>
               <td>
-                <h5 class="text-center">{{ user.username }}</h5>
+                <h6 class="text-center">{{ user.username }}</h6>
               </td>
               <td>
-                  <h5 class="text-center">{{ order.price }} ₽</h5>
+                <h6 class="text-center">{{ order.price }} ₽</h6>
               </td>
               <td>
-                <a href="{% url 'orders:order_pdf' order.id %}"><h5 class="text-center"><i class="bi bi-envelope-at-fill"></i> Отправить</h5></a>
+                <a href="{% url 'orders:order_pdf' order.id %}"><h6 class="text-center"><i class="bi bi-envelope-at-fill"></i> Отправить</h6></a>
               </td>
             </tr>
           {% endfor %}
@@ -57,6 +58,7 @@
         <a  href="{% url 'food_order:dish_list' %}" class="btn btn-outline-primary">Продолжить покупки</a>
       </p>
     </div>
+    <div class="col-md-1 col-lg-2"></div>
   </div>
 
 {% endblock %}

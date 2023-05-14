@@ -57,7 +57,7 @@ def get_orders_history(request):
         if int(order['id']) in list(orders_item_sum.keys()):
             order['price'] = orders_item_sum[int(order['id'])]
 
-    paginator = Paginator(orders_list, 5)
+    paginator = Paginator(orders_list, 10)
     page_number = request.GET.get('page', 1)
     try:
         orders = paginator.page(page_number)

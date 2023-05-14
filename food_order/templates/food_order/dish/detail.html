@@ -2,36 +2,35 @@
 {% load static %}
 
 {% block page_header %}
-  <h1>Описание</h1>
+  <div class="text-center"><h1>Описание</h1></div>
 {% endblock %}
 
 
 {% block content %}
-    <!-- Product section-->
     <section class="py-5">
-        <div class="container-fluid px-4 px-lg-5 my-5">
+        <div class="container px-4 px-lg-5 my-0">
             <div class="row gx-4 gx-lg-5 align-items-center">
                 <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0"
                                            src="{{ dish.image.url }}" alt="..."/></div>
                 <div class="col-md-6">
 
-                    <h1 class="display-5 fw-bolder">{{ dish.name }}</h1>
-                    <p class="lead">Состав:{% if dish.composition %} {{ dish.composition }} {% else %} Состав
+                    <h2 class="display-5 fw-bolder">{{ dish.name }}</h2>
+                    <p class="lead">Состав:<br>{% if dish.composition %} {{ dish.composition }} {% else %} Состав
                       отсутствует... {% endif %}</p>
-                    <p class="lead">{% if dish.description %} {{ dish.description }} {% else %} Описание
+                    <p class="lead">Описание:<br>{% if dish.description %} {{ dish.description }} {% else %} Описание
                         отсутствует... {% endif %}</p>
                     <div class="fs-5 mt-5 mb-3">
                         <span>Цена: {{ dish.price }} руб.</span>
                     </div>
-                    <div class="fs-5 mt-5 mb-3">
+                    <div class="fs-5 mt-1 mb-3">
                       <p><form action="{% url 'cart:cart_add' dish.id %}" method="post">
                         {{ cart_dish_form }}
                         {% csrf_token %}
-                        <button role="submit" class="btn btn-primary">В корзину</button>
+                        <button role="submit" class="btn btn-primary" style="margin: 2%;">В корзину</button>
                         <input type="hidden" name="next" />
+                        <a  href="{% url 'food_order:dish_list' %}" class="btn btn-outline-primary" style="width: 11rem;">Продолжить покупки</a>
                       </form></p>
                       
-                      <a  href="{% url 'food_order:dish_list' %}" class="btn btn-primary">Продолжить покупки</a>
                   </div>
                 </div>
             </div>
