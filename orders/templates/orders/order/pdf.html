@@ -1,16 +1,16 @@
 <html>
 <body>
-  <h1>Order food</h1>
+  <div class="text-center"><h1>Order food</h1></div>
   <p>
     Заказ №{{ order.id }} от {{ order.created|date:"d M, Y" }}
     <br>
     Доставить {{ order.date| date:"d M, Y" }}
   </p>
-  <h3>Заказ на</h3>
+  <h3>Заказчик</h3>
   <p>
     {{ order.name }}<br>
   </p>
-  <h3>Купленные товары</h3>
+  <h3>Товары в заказе:</h3>
   <table>
     <thead>
         <tr>
@@ -22,7 +22,7 @@
     </thead>
     <tbody>
         {% for item in order.items.all %}
-        <tr class="row{% cycle "1" "2" %}">
+        <tr class="row">
         <td>{{ item.dish.name }}</td>
         <td class="num">{{ item.price }} руб.</td>
         <td class="num">{{ item.quantity }}</td>
@@ -35,8 +35,5 @@
         </tr>
     </tbody>
   </table>
-  <span class="{% if order.paid %}paid{% else %}pending{% endif %}">
-{% if order.paid %}Paid{% else %}Pending payment{% endif %}
-  </span>
 </body>
 </html>

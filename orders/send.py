@@ -13,9 +13,9 @@ def send_report(request, order_id):
     """
     order = Order.objects.get(id=order_id)
     user = request.user
-    # create invoice e-mail
-    subject = f'My Shop – Invoice no. {order.id}'
-    message = 'Please, find attached the invoice for your recent purchase.'
+    # содержание письма
+    subject = f'Order food - ваш заказ №{order.id}'
+    message = 'Пожалуйста, проверьте правильность заказа'
     email = EmailMessage(subject,
                          message,
                          'admin@myshop.com',
@@ -27,7 +27,7 @@ def send_report(request, order_id):
     weasyprint.HTML(string=html).write_pdf(out,
                                            stylesheets=stylesheets)
     # прикрепить PDF-файл
-    email.attach(f'order_{order.id}.pdf',
+    email.attach(f'Заказ_№{order.id}.pdf',
                  out.getvalue(),
                  'application/pdf')
     # отправить электронное письмо
