@@ -18,7 +18,7 @@ def register(request):
             new_user = form.save()
             # Выполнение входа и перенаправление на домашнюю страницу.
             login(request, new_user)
-            return redirect('food_order:index')
+            return redirect('food_order:dish_list')
 
     # Вывести пустую или недействительную форму.
     context = {'form': form}

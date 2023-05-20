@@ -11,7 +11,8 @@
         <div class="container px-4 px-lg-5 my-0">
             <div class="row gx-4 gx-lg-5 align-items-center">
                 <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0"
-                                           src="{{ dish.image.url }}" alt="..."/></div>
+                                           src="{% if dish.image %}{{ dish.image.url }}
+                                           {% else %}{% static 'img/no_image.png' %}{% endif %}" alt="..."/></div>
                 <div class="col-md-6">
 
                     <h2 class="display-5 fw-bolder">{{ dish.name }}</h2>
