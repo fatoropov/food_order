@@ -43,20 +43,17 @@
 
         <div class="col-8 col-sm-9 col-md-10 ">
 
-          <!--
-          <div class="row">
-            {% if messages %}
-              <ul class="messages">
-                {% for message in messages %}
-                  <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
-                    {{ message }}
-                    <a href="#" class="close">x</a>
-                  </li>
-                {% endfor %}
-              </ul>
-            {% endif %}
-          </div>
-          -->
+          {% if messages %}
+            <ul class="messages">
+              {% for message in messages %}
+                <li class="{{ message.tags }}">
+                  {{ message|safe }}
+                  <a href="#" class="close">x</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
           <div class="row-cols-1 row-cols-sm-1 row-cols-md-2">
             <div class="card-deck mb-3 text-center">
               {% for dish in dishes %}

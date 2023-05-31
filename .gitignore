@@ -2,4 +2,4 @@
 __pycache__/
 site_food_order/__pycache__
 food_order/static/admin
-.env
+.venv

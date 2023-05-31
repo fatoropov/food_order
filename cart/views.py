@@ -78,13 +78,13 @@ def cart_add_random_food(request):
     dish = get_object_or_404(Dish, id=dish_rand['id'])
     form = CartAddDishForm(request.POST)
     if form.is_valid():
-        messages.success(request, "Товар добавлен в корзину")
         cd = form.cleaned_data
         cart.add(dish=dish,
                  quantity=1,
                  override_quantity=cd['override'])
+        messages.success(request, f'Товар - "{dish}" добавлен в корзину')
     else:
-        messages.error(request, "Ошибка. Товар не добавлен")
+        messages.error(request, f'Ошибка \n Товар - {dish} не добавлен')
     return redirect('food_order:dish_list')
 
 
@@ -97,11 +97,11 @@ def cart_add_random_drink(request):
     dish = get_object_or_404(Dish, id=dish_rand['id'])
     form = CartAddDishForm(request.POST)
     if form.is_valid():
-        messages.success(request, "Товар добавлен в корзину")
         cd = form.cleaned_data
         cart.add(dish=dish,
                  quantity=1,
                  override_quantity=cd['override'])
+        messages.success(request, f'Товар - "{dish}" добавлен в корзину')
     else:
-        messages.error(request, "Ошибка. Товар не добавлен")
+        messages.error(request, f'Ошибка \n Товар - {dish} не добавлен')
     return redirect('food_order:dish_list')

@@ -24,6 +24,9 @@
               <h5 class="text-center">Сотрудник</h5>
             </th>
             <th class="primary">
+              <h5 class="text-center">Состав</h5>
+            </th>
+            <th class="primary">
               <h5 class="text-center">Сумма</h5>
             </th>
             <th class="primary">
@@ -44,6 +47,9 @@
                 <h6 class="text-center">{{ user.username }}</h6>
               </td>
               <td>
+                <h6 class="text-center">{{ order.dishes }}</h6>
+              </td>
+              <td>
                 <h6 class="text-center">{{ order.price }} ₽</h6>
               </td>
               <td>
@@ -62,7 +68,7 @@
   </div>
   {% else %}
   <h4 class="mt-3 mb-3 text-center">
-    Заказов нет
+    Заказов еще не было
   </h4>
   {% endif %}
 

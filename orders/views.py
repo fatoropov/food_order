@@ -9,6 +9,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from .send import send_report
+from food_order.models import Dish
 import weasyprint
 
 
@@ -44,17 +45,27 @@ def get_orders_history(request):
     orders_id = [id['id'] for id in orders_list]
 
     orders_item_sum = {}
+    orders_item_dishes = {}
+
     for i in orders_id:
         orders_item_sum[i] = 0
+        orders_item_dishes[i] = ''
+
     for item in list(OrderItem.objects.all().values()):
+        print(item)
         for i in list(orders_item_sum.keys()):
-            print(item)
             if item['order_id'] == i:
                 orders_item_sum[i] += item['price'] * item['quantity']
+                orders_item_dishes[i] = list(Dish.objects.filter(
+                                        id=item['dish_id']))
 
+# доделать
     for order in orders_list:
         if int(order['id']) in list(orders_item_sum.keys()):
             order['price'] = orders_item_sum[int(order['id'])]
+            for i in orders_item_dishes[int(order['id'])]:
+                order['dishes'] = i.name
+    print(orders_list)
 
     paginator = Paginator(orders_list, 10)
     page_number = request.GET.get('page', 1)
