@@ -14,13 +14,14 @@ def cart_add(request, dish_id):
     dish = get_object_or_404(Dish, id=dish_id)
     form = CartAddDishForm(request.POST)
     if form.is_valid():
-        messages.success(request, "Товар добавлен в корзину")
         cd = form.cleaned_data
+        quantity = cd['quantity']
+        messages.success(request, f'Товар - "{dish}" ({quantity} шт.) добавлен в корзину')
         cart.add(dish=dish,
                  quantity=cd['quantity'],
                  override_quantity=cd['override'])
     else:
-        messages.error(request, "Ошибка. Товар не добавлен")
+        messages.error(request, f'Ошибка \n Товар - {dish} не добавлен')
     return redirect('food_order:dish_list')
 
 
