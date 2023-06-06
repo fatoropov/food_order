@@ -55,18 +55,12 @@ def get_orders_history(request):
             if item['order_id'] == i:
                 orders_item_sum[i] += item['price'] * item['quantity']
                 for n in list(Dish.objects.filter(id=item['dish_id'])):
-                       print(n)
-                       orders_items_dishes[i].append(n.name)
-
-    print(orders_items_dishes)
-
+                    orders_items_dishes[i].append(n.name)
 
     for order in orders_list:
         if int(order['id']) in list(orders_item_sum.keys()):
             order['price'] = orders_item_sum[int(order['id'])]
             order['dishes'] = orders_items_dishes[int(order['id'])]
-
-           # print(order['dishes'])
 
     paginator = Paginator(orders_list, 10)
     page_number = request.GET.get('page', 1)
@@ -93,5 +87,5 @@ def order_pdf(request, order_id):
                                            stylesheets=[weasyprint.CSS(
                                                 settings.STATIC_ROOT / 'css/pdf.css')])
     # send_report(request, order_id)
-    #return redirect('orders:orders_history')
+    # return redirect('orders:orders_history')
     return response

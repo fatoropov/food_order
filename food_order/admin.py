@@ -1,11 +1,5 @@
 from django.contrib import admin
-from .models import Employee, Category, Dish
-
-
-@admin.register(Employee)
-class EmployeeAdmin(admin.ModelAdmin):
-    list_display = ['name', 'department', 'slug']
-    prepopulated_fields = {'slug': ('name',)}
+from .models import Category, Dish
 
 
 @admin.register(Category)
