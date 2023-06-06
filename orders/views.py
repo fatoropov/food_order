@@ -43,28 +43,30 @@ def get_orders_history(request):
     orders_list = [order for order in list(Order.objects.all().values())
                    if order['name_id'] == client[0]['id']]
     orders_id = [id['id'] for id in orders_list]
-
     orders_item_sum = {}
-    orders_item_dishes = {}
+    orders_items_dishes = {}
 
     for i in orders_id:
         orders_item_sum[i] = 0
-        orders_item_dishes[i] = ''
+        orders_items_dishes[i] = []
 
     for item in list(OrderItem.objects.all().values()):
         for i in list(orders_item_sum.keys()):
             if item['order_id'] == i:
                 orders_item_sum[i] += item['price'] * item['quantity']
-                orders_item_dishes[i] = list(Dish.objects.filter(
-                                        id=item['dish_id']))
+                for n in list(Dish.objects.filter(id=item['dish_id'])):
+                       print(n)
+                       orders_items_dishes[i].append(n.name)
 
-# доделать
+    print(orders_items_dishes)
+
+
     for order in orders_list:
-        print(order)
         if int(order['id']) in list(orders_item_sum.keys()):
             order['price'] = orders_item_sum[int(order['id'])]
-            for i in orders_item_dishes[int(order['id'])]:
-                order['dishes'] = i.name
+            order['dishes'] = orders_items_dishes[int(order['id'])]
+
+           # print(order['dishes'])
 
     paginator = Paginator(orders_list, 10)
     page_number = request.GET.get('page', 1)

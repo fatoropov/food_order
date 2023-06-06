@@ -47,7 +47,9 @@
                 <h6 class="text-center">{{ user.username }}</h6>
               </td>
               <td>
-                <h6 class="text-center">{{ order.dishes }}</h6>
+                {% for dishes in order.dishes %}
+                  <h6 class="text-center">{{ dishes }}</h6>
+                {% endfor %}
               </td>
               <td>
                 <h6 class="text-center">{{ order.price }} ₽</h6>
