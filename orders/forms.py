@@ -1,6 +1,7 @@
 from django import forms
 from .models import Order
 from django.contrib.auth.models import User
+from users.models import Employee
 
 from datetime import date
 
@@ -21,3 +22,16 @@ class OrderCreateForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ['name', 'date']
+
+
+class EmployeeCompanyForm(forms.ModelForm):
+    company = forms.CharField(label='Название компании',
+                              disabled=True)
+
+    class Meta:
+        model = Employee
+        fields = ['company']
+
+    def get_company(self):
+        company_name = self.cleaned_data['company']
+        return company_name

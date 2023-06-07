@@ -9,8 +9,8 @@ from .models import Employee
 
 def register(request):
     if request.method == 'POST':
-        user_form = UserRegistrationForm(request.POST)
         employee_form = EmployeeRegistrationForm(request.POST)
+        user_form = UserRegistrationForm(request.POST)
         if user_form.is_valid():
 
             new_user = user_form.save(commit=False)

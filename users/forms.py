@@ -25,7 +25,7 @@ class UserRegistrationForm(forms.ModelForm):
     def clean_email(self):
         data = self.cleaned_data['email']
         if User.objects.filter(email=data).exists():
-            raise forms.ValidationError('Email готов к использованию')
+            raise forms.ValidationError('Email неправильного формата')
         return data
 
 
@@ -42,6 +42,10 @@ class EmployeeRegistrationForm(forms.ModelForm):
 
 
 class UserEditForm(forms.ModelForm):
+    username = forms.CharField(label='Имя пользователя')
+    first_name = forms.CharField(label='Имя')
+    email = forms.EmailField(label='Почта')
+
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email']
@@ -51,11 +55,13 @@ class UserEditForm(forms.ModelForm):
         qs = User.objects.exclude(id=self.instance.id)\
                          .filter(email=data)
         if qs.exists():
-            raise forms.ValidationError('Email готов к использованию')
+            raise forms.ValidationError('Email неправильного формата')
         return data
 
 
 class EmployeeEditForm(forms.ModelForm):
+    company = forms.CharField(label='Название компании')
+
     class Meta:
         model = Employee
         fields = ['company']

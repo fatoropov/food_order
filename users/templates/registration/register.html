@@ -9,8 +9,9 @@
 <div class="container">
   <form method="post" action="{% url 'users:register' %}" class="form">
     {% csrf_token %}
-    {% bootstrap_form user_form %}
     {% bootstrap_form employee_form %}
+    {% bootstrap_form user_form %}
+
     {% buttons %}
     <a href="{% url 'food_order:dish_list' %}"><button name="submit" class="btn btn-primary">Зарегистрироваться</button></a>
     {% endbuttons %}

@@ -1,15 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Order, OrderItem
-from .forms import OrderCreateForm
+from food_order.models import Dish
+from users.models import Employee
 from cart.cart import Cart
 from django.contrib.auth.models import User
+from .forms import OrderCreateForm, EmployeeCompanyForm
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from .send import send_report
-from food_order.models import Dish
 import weasyprint
 
 
@@ -17,8 +18,13 @@ def order_create(request):
     cart = Cart(request)
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
-        if form.is_valid():
+        company_form = EmployeeCompanyForm(instance=request.user.employee,
+                                           data=request.POST)
+        if form.is_valid() and company_form.is_valid():
             order = form.save()
+            company_name = company_form.get_company()
+            form.fields['name'].queryset = \
+                User.objects.filter(employee__company=company_name)
             for item in cart:
                 OrderItem.objects.create(order=order,
                                          dish=item['dish'],
@@ -30,10 +36,17 @@ def order_create(request):
                           {'order': order})
     else:
         form = OrderCreateForm()
+        company_form = EmployeeCompanyForm(instance=request.user.employee,
+                                           data=request.POST)
+        if company_form.is_valid():
+            company_name = company_form.get_company()
+            form.fields['name'].queryset = \
+                User.objects.filter(employee__company=company_name)
     return render(request,
                   'orders/order/create.html',
                   {'cart': cart,
-                   'form': form})
+                   'form': form,
+                   'company_form': company_form})
 
 
 @login_required
