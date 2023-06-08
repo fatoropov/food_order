@@ -44,11 +44,12 @@ class EmployeeRegistrationForm(forms.ModelForm):
 class UserEditForm(forms.ModelForm):
     username = forms.CharField(label='Имя пользователя')
     first_name = forms.CharField(label='Имя')
+    last_name = forms.CharField(label='Фамилия')
     email = forms.EmailField(label='Почта')
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email']
+        fields = ['username', 'first_name', 'last_name', 'email']
 
     def clean_email(self):
         data = self.cleaned_data['email']

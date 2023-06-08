@@ -70,13 +70,23 @@
         <a class="btn btn-danger btn-lg float-right" href="{% url 'cart:cart_clear' %}">
           Очистить корзину
         </a>
-      </div>
-      <div class="col-sm-1 col-md-1"></div>
-      <div class="col-sm-4 col-md-2">
-        <a class="btn btn-success btn-lg float-right" href="{% url 'orders:order_create' %}">
-            Перейти к заказу
-        </a>
-      </div>
+        {% if user.is_authenticated %}
+          </div>
+          <div class="col-sm-1 col-md-1"></div>
+          <div class="col-sm-4 col-md-2">
+            <a class="btn btn-success btn-lg float-right" href="{% url 'orders:order_create' %}">
+                Перейти к заказу
+            </a>
+          </div>
+        {% else %}
+          </div>
+          <div class="col-sm-1 col-md-1"></div>
+          <div class="col-sm-4 col-md-2">
+            <a class="btn btn-success btn-lg float-right" href="{% url 'users:login' %}">
+                Перейти к заказу
+            </a>
+          </div>
+        {% endif %}
     </div>
   </div>
   {% else %}
